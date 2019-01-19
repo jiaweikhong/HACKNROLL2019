@@ -2,6 +2,7 @@ package com.example.asus.hacknroll;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
@@ -65,7 +66,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     // remember to change the browser api key
 
-    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw  ";
+    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
     final StringBuilder original = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
@@ -94,8 +95,9 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.cuteloading);
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("Location");
+        //Intent intent = getIntent();
+        String location = Constants.mPreferences.getString(Constants.selLocation,"DhobyGhaut");
+        location = getString(getResources().getIdentifier(location, "string", getPackageName()));
         String[] locationsplit = location.split(",");
         currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
         Log.i(TAG, currentLocation.toString());
@@ -299,15 +301,23 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         try {
             String pageName = result.getJSONObject ( "result" ).getString("name");
             String rating = result.getJSONObject ( "result" ).getString ( "rating" );
-            String formatted_address = result.getJSONObject ( "result" ).getString ( "formatted_address" );
             String icon = result.getJSONObject ( "result" ).getString ( "icon" );
+            String formattedAddress = result.getJSONObject ( "result" ).getString ( "formatted_address" );
 
-            Log.i ( TAG,pageName );
-            Log.i(TAG,rating);
-            Log.i(TAG,formatted_address);
-            Log.i ( TAG,icon );
+
+            SharedPreferences.Editor editor =Constants.mPreferences.edit();
+            editor.putString(Constants.pageName, pageName);
+            editor.putString(Constants.rating, rating);
+            editor.putString(Constants.formattedAddress, formattedAddress);
+            editor.apply();
+
+            Log.i ( Constants.TAG,pageName );
+            Log.i(Constants.TAG,rating);
+            Log.i(Constants.TAG,formattedAddress);
+            Log.i(Constants.TAG,icon);
         } catch (JSONException e) {
             e.printStackTrace ( );
+            Log.i(Constants.TAG,"Error");
         }
     }
 }
