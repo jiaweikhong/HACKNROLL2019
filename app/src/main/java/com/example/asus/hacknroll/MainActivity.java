@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int maxprice;
                 int minstar;
                 int maxstar;
+                // Check if user has input min/max prices/ratings.
                 try {
                     minprice = Integer.parseInt(min_price.getSelectedItem().toString());
                     maxprice = Integer.parseInt(max_price.getSelectedItem().toString());
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, "Please fill in all dropdowns!", Toast.LENGTH_LONG).show();
                     break;
                 }
+
+                // Check if min prices/ratings are less than max prices/ratings
                 if (minprice >= maxprice) {
                     Toast.makeText(MainActivity.this, "Max price has to be higher than min price!", Toast.LENGTH_LONG).show();
                 } else if (minstar >= maxstar) {
@@ -96,8 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(fromMain);
                     break;
                 }
+
             case R.id.gotochecklocation:
-                fromMain = new Intent ( this,Picker.class );
+                Log.i(Constants.TAG, "Button Pressed");
+                fromMain = new Intent(this, GetLocation.class);
+                GetLocation.loadNearByPlaces(1.299101, 103.845679);
                 Log.i ( Constants.TAG,"Going to currentlocation" );
                 startActivity(fromMain);
                 break;
