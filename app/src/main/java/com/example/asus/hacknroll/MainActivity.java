@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner max_star;
     private Button gotocheckcurrentlocation;
     private Button getlocation;
+    private Integer radius;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     max_dist_text.setText("1km");
                 }
+                radius = progress * 200 +200;
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 fromMain.putExtra("Location",getResources().getIdentifier(selLocation, "string", getPackageName()));
+                fromMain.putExtra("Radius", radius);
                 //fromMain.putExtra("Radius")
                 Log.i ( Constants.TAG,"Going to currentlocation" );
                 startActivity(fromMain);

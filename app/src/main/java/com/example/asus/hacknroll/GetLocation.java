@@ -1,5 +1,6 @@
 package com.example.asus.hacknroll;
 
+import android.content.Intent;
 import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
 import android.os.Handler;
@@ -75,6 +76,13 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     public HashMap<Integer, MarkerOptions > a = new HashMap <Integer, MarkerOptions> (  );
 
+    Intent intent = getIntent();
+    String location = intent.getStringExtra("Location");
+    String[] locationsplit = location.split(",");
+    LatLng currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
+    Integer radius = intent.getIntExtra("Radius", 0);
+
+
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -91,11 +99,11 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLngBounds Singapore = new LatLngBounds( new LatLng(1.299101, 103.845679), new LatLng(1.299101, 103.845679));
+        LatLngBounds Singapore = new LatLngBounds( currentLocation, currentLocation);
         mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
-        loadNearByPlaces(1.299101, 103.845679, 100);
-        loadNearByPlaces(1.299101, 103.845679, 200);
-        loadNearByPlaces(1.299101, 103.845679, 400);
+        for(int distance=100; distance<=radius; distance+=100 ) {
+            loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
+        }
 
 
 
