@@ -143,6 +143,11 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
             for(int distance=200; distance<=radius; distance+=200 ) {
                 loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
             }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return a.toString();
     }
 
@@ -312,7 +317,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
             editor.putString(Constants.icon, icon);
             editor.apply();
 
-            Log.i (Constants.TAG,pageName );
+            Log.i (Constants.TAG, "Last: " + pageName );
             Log.i(Constants.TAG,rating);
             Log.i(Constants.TAG,formattedAddress);
             Log.i(Constants.TAG,icon);

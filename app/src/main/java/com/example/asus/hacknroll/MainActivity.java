@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner location;
     private Spinner min_star;
     private Spinner max_star;
-    private Button gotocheckcurrentlocation;
-    private Button getlocation;
     private Integer radius=200;
     private String selLocation;
     private int selLocationInt;
@@ -83,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // When button is pushed
         generate_store = findViewById(R.id.generate_store);
         generate_store.setOnClickListener(this);
-        gotocheckcurrentlocation = findViewById ( R.id.gotochecklocation );
-        gotocheckcurrentlocation.setOnClickListener ( this );
-        getlocation = findViewById ( R.id.getlocation );
-        getlocation.setOnClickListener ( this );
 
     }
 
@@ -126,24 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
 
-            case R.id.gotochecklocation:
-                Log.i(Constants.TAG, "Button Pressed");
-                fromMain = new Intent(this, GetLocation.class);
-                selLocation = location.getSelectedItem().toString();
-                if (selLocation.equals("Select Location")){
-                    Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
-                    break;
-                }
-                selLocation = selLocation.replace(" ", "");
-                selLocation = selLocation.replace("MRT", "");
-                Log.i("gplaces", selLocation);
-                Log.i("gplaces", getString(getResources().getIdentifier(selLocation, "string", getPackageName())));
-                fromMain.putExtra("Location",getString(getResources().getIdentifier(selLocation, "string", getPackageName())));
-                Log.i("gplaces", "radius before sending: " + radius);
-                fromMain.putExtra("Radius", radius);
-                Log.i ( Constants.TAG,"Going to currentlocation" );
-                startActivity(fromMain);
-                break;
         }
     }
 

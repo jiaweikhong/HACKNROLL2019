@@ -81,7 +81,7 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
         }
         catch (Exception e) {
             e.printStackTrace();
-            Log.i(Constants.TAG,"IOE");
+            Log.i(Constants.TAG,"Unknown Error");
             store_icon.setImageResource(R.drawable.toastbox);
         }
 
@@ -93,15 +93,17 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
         switch(v.getId()) {
             case R.id.open_gmaps:
                 // implement open google maps
-                //geo:latitude,longitude?z=zoom
-
-                //Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
-
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=46.414382,10.013988"  );
+                String name = Constants.mPreferences.getString(Constants.pageName,"Toast Box");
+                String address = Constants.mPreferences.getString(Constants.formattedAddress,"Bishan");
+                Log.i(Constants.TAG, address);
+                Log.i ( Constants.TAG,"open maps clicked" );
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + name + " " + address );
+                Log.i ( Constants.TAG,"url loaded" );
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
+                Log.i ( Constants.TAG,"Before opening gmaps" );
                 startActivity(mapIntent);
-                Log.i ( Constants.TAG,"Opening Google Maps" );
+                break;
 
             case R.id.randomize_again:
                 // implement randomize and refresh page. no intents required
@@ -113,6 +115,7 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
                 fromStoreInfo = new Intent(this, MainActivity.class);
                 Log.i(Constants.TAG, "Returning to main menu");
                 startActivity(fromStoreInfo);
+                break;
         }
     }
 }

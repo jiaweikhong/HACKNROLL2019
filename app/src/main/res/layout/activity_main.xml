@@ -297,18 +297,7 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/button_find_food_w"
         android:contentDescription="TODO" />
-
-    <Button
-        android:id="@+id/gotochecklocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/getlocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Location" />
+    
 
 
 </LinearLayout>
