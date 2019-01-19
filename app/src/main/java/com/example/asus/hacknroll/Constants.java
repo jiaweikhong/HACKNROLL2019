@@ -15,4 +15,5 @@ public class Constants {
     public static final String rating = "rating";
     public static final String pageName = "pageName";
     public static final String formattedAddress = "formattedAddress";
+    public static final String icon = "icon";
 }

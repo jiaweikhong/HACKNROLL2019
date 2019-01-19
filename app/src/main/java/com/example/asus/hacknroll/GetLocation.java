@@ -309,9 +309,10 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
             editor.putString(Constants.pageName, pageName);
             editor.putString(Constants.rating, rating);
             editor.putString(Constants.formattedAddress, formattedAddress);
+            editor.putString(Constants.icon, icon);
             editor.apply();
 
-            Log.i ( Constants.TAG,pageName );
+            Log.i (Constants.TAG,pageName );
             Log.i(Constants.TAG,rating);
             Log.i(Constants.TAG,formattedAddress);
             Log.i(Constants.TAG,icon);
