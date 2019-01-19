@@ -131,7 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
                     break;
                 }
-                fromMain.putExtra("Location",getResources().getIdentifier(selLocation, "string", getPackageName()));
+                selLocation = selLocation.replace(" ", "");
+                selLocation = selLocation.replace("MRT", "");
+                Log.i("gplaces", selLocation);
+                Log.i("gplaces", getString(getResources().getIdentifier(selLocation, "string", getPackageName())));
+                fromMain.putExtra("Location",getString(getResources().getIdentifier(selLocation, "string", getPackageName())));
                 fromMain.putExtra("Radius", radius);
                 //fromMain.putExtra("Radius")
                 Log.i ( Constants.TAG,"Going to currentlocation" );

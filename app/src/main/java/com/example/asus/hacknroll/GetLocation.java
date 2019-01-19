@@ -63,7 +63,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     // remember to change the browser api key
 
-    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyAYtGuKBzhpwXPyStjEskz7IQS6S3YSrPY";
+    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
     final StringBuilder original = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
@@ -76,17 +76,20 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     public HashMap<Integer, MarkerOptions > a = new HashMap <Integer, MarkerOptions> (  );
 
-    Intent intent = getIntent();
-    String location = intent.getStringExtra("Location");
-    String[] locationsplit = location.split(",");
-    LatLng currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
-    Integer radius = intent.getIntExtra("Radius", 0);
-
+    public LatLng currentLocation;
+    public Integer radius;
 
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
+
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("Location");
+        String[] locationsplit = location.split(",");
+        currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
+        radius = intent.getIntExtra("Radius", 0);
+
         setContentView ( R.layout.activity_maps );
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( )
@@ -101,7 +104,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLngBounds Singapore = new LatLngBounds( currentLocation, currentLocation);
         mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
-        for(int distance=100; distance<=radius; distance+=100 ) {
+        for(int distance=200; distance<=radius; distance+=200 ) {
             loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
         }
 
@@ -231,10 +234,12 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
                 }
                 int min = 0;
-                int max = a.size ()-1;
+                int max = a.size()-1;
+                Log.i(TAG, "Size of hashmap: " + a.size());
 
 
                 int k = (int)(Math.random() * ((max - min) + 1)) + min;
+                Log.i(TAG,"Random Number: " + String.valueOf(k));
                 MarkerOptions m = a.get ( k );
 
                 mMap.addMarker ( m );
