@@ -117,6 +117,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.gotochecklocation:
                 Log.i(Constants.TAG, "Button Pressed");
                 fromMain = new Intent(this, GetLocation.class);
+                selLocation = location.getSelectedItem().toString();
+                if (selLocation.equals("Select Location")){
+                    Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                fromMain.putExtra("Location",getResources().getIdentifier(selLocation, "string", getPackageName()));
+                //fromMain.putExtra("Radius")
                 Log.i ( Constants.TAG,"Going to currentlocation" );
                 startActivity(fromMain);
                 break;
