@@ -65,7 +65,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     // remember to change the browser api key
 
-    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyDGwpilUpfUNOrAuSEdtlNInt7n7k-eVmI";
+    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
     final StringBuilder original = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
