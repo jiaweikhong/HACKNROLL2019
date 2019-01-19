@@ -1,6 +1,7 @@
 package com.example.asus.hacknroll;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,8 +12,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.location.places.Place;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,20 +24,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button gotocheckcurrentlocation;
     private Button getlocation;
     private Integer radius;
+    private String selLocation;
+    private int selLocationInt;
+    private int minstar = 1;
+    private int maxstar = 5;
+    private int selProgress;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_main );
         Log.i(Constants.TAG,"On main page");
+        Constants.mPreferences = getSharedPreferences(Constants.sharedPref,MODE_PRIVATE);
 
         // Code for adjusting Max Distance from selected Location
         max_dist_text = findViewById(R.id.max_dist_text);
         max_dist = findViewById(R.id.max_dist);
+        selProgress = Constants.mPreferences.getInt(Constants.selProgress,0);
+        radius = Constants.mPreferences.getInt(Constants.selRadius,200);
+        max_dist.setProgress(selProgress);
+        if (Constants.mPreferences.getInt(Constants.selProgress,0) < 4) {
+            String setString = Integer.toString(Constants.mPreferences.getInt(Constants.selProgress,0)*200 + 200)+'m';
+            max_dist_text.setText(setString);
+        } else {
+            max_dist_text.setText("1km");
+        }
+
         max_dist.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.i(Constants.TAG,"Progress changing");
+                selProgress = progress;
                 if (progress < 4) {
                     max_dist_text.setText(Integer.toString(progress*200 + 200)+'m');
                 } else {
@@ -60,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         min_star = findViewById(R.id.min_star);
         max_star = findViewById(R.id.max_star);
 
+        location.setSelection(Constants.mPreferences.getInt(Constants.selLocationInt,0));
+        min_star.setSelection(Constants.mPreferences.getInt(Constants.selMinStar,0));
+        max_star.setSelection(Constants.mPreferences.getInt(Constants.selMaxStar,0));
+
         // When button is pushed
         generate_store = findViewById(R.id.generate_store);
         generate_store.setOnClickListener(this);
@@ -67,22 +87,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gotocheckcurrentlocation.setOnClickListener ( this );
         getlocation = findViewById ( R.id.getlocation );
         getlocation.setOnClickListener ( this );
+
     }
 
     public void onClick(View v){
         Intent fromMain = null;
         switch(v.getId()) {
             case R.id.generate_store:
-                String selLocation;
-                int minstar = 1;
-                int maxstar = 5;
-
                 // Check if user has input a location
-                selLocation = location.getSelectedItem().toString();
-                if (selLocation.equals("Select Location")){
+                selLocationInt = location.getSelectedItemPosition();
+                if (selLocationInt == 0){
                     Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
                     break;
                 }
+                selLocation = location.getSelectedItem().toString();
 
                 // Check if user has input min/max prices/ratings.
                 if (min_star.getSelectedItemPosition() != 0){
@@ -121,4 +139,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(Constants.TAG,"Upload on pause");
+        SharedPreferences.Editor editor =Constants.mPreferences.edit();
+        editor.putInt(Constants.selMinStar, minstar);
+        editor.putInt(Constants.selMaxStar, maxstar -1);
+        editor.putInt(Constants.selLocationInt, selLocationInt);
+        editor.putString(Constants.selLocation, String.valueOf(selLocation));
+        editor.putInt(Constants.selProgress, selProgress);
+        editor.putInt(Constants.selRadius, radius);
+
+        editor.apply();
+    }
+
 }
