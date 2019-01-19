@@ -60,6 +60,8 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.randomize_again:
                 // implement randomize and refresh page. no intents required
+                Intent redo = new Intent(this, GetLocation.class);
+                startActivity(redo);
                 break;
 
             case R.id.return_menu:
