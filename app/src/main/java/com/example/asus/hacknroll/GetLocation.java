@@ -49,6 +49,8 @@ public class GetLocation extends AppCompatActivity {
     // remember to change the browser api key
 
     public static final String GOOGLE_BROWSER_API_KEY = "@string/google_maps_key";
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static final int PROXIMITY_RADIUS = 5000;
     @Override
     protected void onCreate ( @Nullable Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -56,94 +58,95 @@ public class GetLocation extends AppCompatActivity {
 
     }
 
-    //    private void loadNearByPlaces(double latitude, double longitude) {
-////YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
-//
-//        String type = "grocery_or_supermarket";
-//        StringBuilder googlePlacesUrl =
-//
-//                new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-//        googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
-//        googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
-//        googlePlacesUrl.append("&types=").append(type);
-//        googlePlacesUrl.append("&sensor=true");
-//        googlePlacesUrl.append("&key=" + GOOGLE_BROWSER_API_KEY);
-//
-//        JsonObjectRequest request = new JsonObjectRequest(googlePlacesUrl.toString(),
-//
-//                new com.android.volley.Response.Listener<JSONObject>() {
-//                    @Override
-//
-//                    public void onResponse(JSONObject result) {
-//
-//                        Log.i(TAG, "onResponse: Result= " + result.toString());
-//                        parseLocationResult(result);
-//                    }
-//                },
-//                new com.android.volley.Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.e(TAG, "onErrorResponse: Error= " + error);
-//                        Log.e(TAG, "onErrorResponse: Error= " + error.getMessage());
-//                    }
-//                });
-//
-//        AppController.getInstance().addToRequestQueue(request);
-//    }
-//
-//    private void parseLocationResult(JSONObject result) {
-//
-//        String id, place_id, placeName = null, reference, icon, vicinity = null;
-//        double latitude, longitude;
-//
-//        try {
-//            JSONArray jsonArray = result.getJSONArray("results");
-//
-//            if (result.getString(STATUS).equalsIgnoreCase(OK)) {
-//
-//                mMap.clear();
-//
-//                for (int i = 0; i < jsonArray.length(); i++) {
-//                    JSONObject place = jsonArray.getJSONObject(i);
-//
-//                    id = place.getString(SUPERMARKET_ID);
-//                    place_id = place.getString(PLACE_ID);
-//                    if (!place.isNull(NAME)) {
-//                        placeName = place.getString(NAME);
-//                    }
-//                    if (!place.isNull(VICINITY)) {
-//                        vicinity = place.getString(VICINITY);
-//                    }
-//                    latitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
-//
-//                            .getDouble(LATITUDE);
-//                    longitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
-//
-//                            .getDouble(LONGITUDE);
-//                    reference = place.getString(REFERENCE);
-//                    icon = place.getString(ICON);
-//
-//                    MarkerOptions markerOptions = new MarkerOptions ();
-//                    LatLng latLng = new LatLng (latitude, longitude);
-//                    markerOptions.position(latLng);
-//                    markerOptions.title(placeName + " : " + vicinity);
-//
-//                    mMap.addMarker(markerOptions);
-//                }
-//
-//                Toast.makeText(getBaseContext(), jsonArray.length() + " Supermarkets found!",
-//
-//                        Toast.LENGTH_LONG).show();
-//            } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
-//                Toast.makeText(getBaseContext(), "No Supermarket found in 5KM radius!!!",
-//
-//                        Toast.LENGTH_LONG).show();
-//            }
-//
-//        } catch (JSONException e) {
-//
-//            e.printStackTrace();
-//            Log.e(TAG, "parseLocationResult: Error=" + e.getMessage());
-//        }
-//    }
+
+        private void loadNearByPlaces(double latitude, double longitude) {
+//YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
+
+        String type = "grocery_or_supermarket";
+        StringBuilder googlePlacesUrl =
+
+                new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
+        googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
+        googlePlacesUrl.append("&types=").append(type);
+        googlePlacesUrl.append("&sensor=true");
+        googlePlacesUrl.append("&key=" + GOOGLE_BROWSER_API_KEY);
+
+        JsonObjectRequest request = new JsonObjectRequest(googlePlacesUrl.toString(),
+
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+
+                    public void onResponse(JSONObject result) {
+
+                        Log.i(TAG, "onResponse: Result= " + result.toString());
+                        parseLocationResult(result);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "onErrorResponse: Error= " + error);
+                        Log.e(TAG, "onErrorResponse: Error= " + error.getMessage());
+                    }
+                });
+
+        AppController.getInstance().addToRequestQueue(request);
+    }
+
+    private void parseLocationResult(JSONObject result) {
+
+        String id, place_id, placeName = null, reference, icon, vicinity = null;
+        double latitude, longitude;
+
+        try {
+            JSONArray jsonArray = result.getJSONArray("results");
+
+            if (result.getString(STATUS).equalsIgnoreCase(OK)) {
+
+                mMap.clear();
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject place = jsonArray.getJSONObject(i);
+
+                    id = place.getString(SUPERMARKET_ID);
+                    place_id = place.getString(PLACE_ID);
+                    if (!place.isNull(NAME)) {
+                        placeName = place.getString(NAME);
+                    }
+                    if (!place.isNull(VICINITY)) {
+                        vicinity = place.getString(VICINITY);
+                    }
+                    latitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
+
+                            .getDouble(LATITUDE);
+                    longitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
+
+                            .getDouble(LONGITUDE);
+                    reference = place.getString(REFERENCE);
+                    icon = place.getString(ICON);
+
+                    MarkerOptions markerOptions = new MarkerOptions ();
+                    LatLng latLng = new LatLng (latitude, longitude);
+                    markerOptions.position(latLng);
+                    markerOptions.title(placeName + " : " + vicinity);
+
+                    mMap.addMarker(markerOptions);
+                }
+
+                Toast.makeText(getBaseContext(), jsonArray.length() + " Supermarkets found!",
+
+                        Toast.LENGTH_LONG).show();
+            } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
+                Toast.makeText(getBaseContext(), "No Supermarket found in 5KM radius!!!",
+
+                        Toast.LENGTH_LONG).show();
+            }
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            Log.e(TAG, "parseLocationResult: Error=" + e.getMessage());
+        }
+    }
 }

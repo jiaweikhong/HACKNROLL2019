@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <double name="DhobyGhaut">1.299101, 103.845679</double>
-    <double name="JurongEast">1.334404, 103.742148</double>
-    <double name="Tampines">1.355357, 103.942836</double>
+    <string name="DhobyGhaut">1.299101, 103.845679</string>
+    <string name="JurongEast">1.334404, 103.742148</string>
+    <string name="Tampines">1.355357, 103.942836</string>
 
 </resources>
