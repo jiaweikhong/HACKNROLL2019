@@ -1,6 +1,7 @@
 package com.example.asus.hacknroll;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -59,11 +60,14 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyAYtGuKBzhpwXPyStjEskz7IQS6S3YSrPY";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    public static final int PROXIMITY_RADIUS = 500;
+    public static final int PROXIMITY_RADIUS = 200;
+    final StringBuilder original = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
 
 
 
     public GoogleMap mMap;
+    public boolean nextpage = false;
+    public String nextjson = null;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -73,7 +77,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( )
                 .findFragmentById ( R.id.map );
         mapFragment.getMapAsync ( this );
-        loadNearByPlaces(1.299101, 103.845679);
     }
 
     @Override
@@ -81,20 +84,27 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLngBounds Singapore = new LatLngBounds( new LatLng(1.214452, 103.603346), new LatLng(1.455876, 104.041428));
-        mMap.moveCamera ( CameraUpdateFactory.newLatLngBounds ( Singapore, 2 ) );
+        LatLngBounds Singapore = new LatLngBounds( new LatLng(1.299101, 103.845679), new LatLng(1.299101, 103.845679));
+        mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
+        loadNearByPlaces(1.299101, 103.845679, 100);
+        loadNearByPlaces(1.299101, 103.845679, 200);
+        loadNearByPlaces(1.299101, 103.845679, 400);
+        //final String combined = original + "pagetoken=" + nextjson + "&key=" + GOOGLE_BROWSER_API_KEY;
+        //Log.i(TAG, "this is the new url: " + combined);
+        //loadNearByPlaces(combined);
+
 
     }
 
 
 
-    private void loadNearByPlaces(double latitude, double longitude) {
+    private void loadNearByPlaces(double latitude, double longitude, Integer radius) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
-        String type = "food";
-        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        String type = "restaurant";
+        final StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
-        googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
+        googlePlacesUrl.append("&radius=").append(radius);
         googlePlacesUrl.append("&types=").append(type);
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + GOOGLE_BROWSER_API_KEY);
@@ -119,6 +129,31 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         AppController.getInstance().addToRequestQueue(request);
     }
 
+
+    private void loadNearByPlaces(String jsonurl) {
+//YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,jsonurl,null,
+
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject result) {
+                        Log.i(TAG, "onResponse: Second Result= " + result.toString());
+                        parseLocationResult(result);
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "onErrorResponse: Error= " + error);
+                        Log.e(TAG, "onErrorResponse: Error= " + error.getMessage());
+                    }
+                });
+
+        AppController.getInstance().addToRequestQueue(request);
+    }
+
     private void parseLocationResult(JSONObject result) {
 
         String id, place_id, placeName = null, reference, icon, vicinity = null;
@@ -126,6 +161,12 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
         try {
             JSONArray jsonArray = result.getJSONArray("results");
+            if(result.has("next_page_token")) {
+                nextjson = result.getString("next_page_token");
+                Log.i(TAG, nextjson);
+            } else {
+                nextjson = null;
+            }
 
             if (result.getString(STATUS).equalsIgnoreCase(OK)) {
 
@@ -159,7 +200,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
                     mMap.addMarker(markerOptions);
 
                 }
-                Log.i(TAG, jsonArray.getString(0));
                 Log.i(TAG, jsonArray.length() + " Supermarkets found!");
             } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
                 Log.i(TAG,"No Supermarket found in 5KM radius!!!");
