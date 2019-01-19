@@ -81,9 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int minstar;
                 int maxstar;
 
-                try{
-                    selLocation = location.toString();
-                }catch (Exception ex){
+                selLocation = location.getSelectedItem().toString();
+                if (selLocation.equals("Select Location")){
                     Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
                     break;
                 }
