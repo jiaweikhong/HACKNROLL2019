@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 selLocation = location.getSelectedItem().toString();
+                selLocation = selLocation.replace(" ", "");
+                selLocation = selLocation.replace("MRT", "");
 
                 // Check if user has input min/max prices/ratings.
                 if (min_star.getSelectedItemPosition() != 0){
@@ -117,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (minstar >= maxstar) {
                     Toast.makeText(MainActivity.this, "Max rating has to be higher than min rating!", Toast.LENGTH_LONG).show();
                 } else {
-                    fromMain = new Intent(this, LoadingScreen.class);
+                    fromMain = new Intent(this, GetLocation.class);
+                    fromMain.putExtra("Location",getString(getResources().getIdentifier(selLocation, "string", getPackageName())));
                     Log.i(Constants.TAG,"going to loading page");
                     startActivity(fromMain);
                     break;

@@ -89,7 +89,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         j = 0;
 
         setContentView(R.layout.activity_loading_screen);
-        new GetTask(this).execute();
+
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.cuteloading);
@@ -98,13 +98,15 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         String location = intent.getStringExtra("Location");
         String[] locationsplit = location.split(",");
         currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
-        radius = intent.getIntExtra("Radius", 200);
+        Log.i(TAG, currentLocation.toString());
+        radius = Constants.mPreferences.getInt(Constants.selRadius,200);
 
         //setContentView ( R.layout.activity_maps );
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( )
                 .findFragmentById ( R.id.map );
         mapFragment.getMapAsync ( this );
+        new GetTask(this).execute();
     }
 
     @Override
