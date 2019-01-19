@@ -13,18 +13,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:entries="@array/Locations" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:text="Max distance from MRT: " />
@@ -33,6 +36,7 @@
             android:id="@+id/max_dist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="200m" />
 
@@ -41,6 +45,7 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:layout_weight="50"
             android:max="4"
@@ -51,79 +56,98 @@
         android:id="@+id/linear_layout_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/star_off" />
-
-            <Spinner
-                android:id="@+id/min_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/min_ratings" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/star_off" />
-
-            <Spinner
-                android:id="@+id/max_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/max_ratings" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/star"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/star_off" />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/star" />
 
             <Spinner
                 android:id="@+id/min_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:entries="@array/min_ratings" />
+                android:entries="@array/min_ratings"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp" />
 
-            <ImageView
-                android:id="@+id/imageView2"
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/star_off" />
+                android:text="-" />
 
             <Spinner
                 android:id="@+id/max_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:entries="@array/max_ratings" />
+                android:entries="@array/max_ratings"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                app:srcCompat="@drawable/dollar" />
+
+            <Spinner
+                android:id="@+id/min_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:entries="@array/min_ratings"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="-" />
+
+            <Spinner
+                android:id="@+id/max_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:entries="@array/max_ratings"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp" />
 
         </LinearLayout>
 
@@ -144,7 +168,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine1" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine1"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine2"
@@ -152,14 +178,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:text="@string/cuisine2" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine2"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine3" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine3"
+                    android:textAppearance="@style/customfontstyle" />
             </LinearLayout>
 
             <LinearLayout
@@ -172,21 +202,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine4" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine4"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine5" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine5"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine6" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine6"
+                    android:textAppearance="@style/customfontstyle" />
             </LinearLayout>
 
             <LinearLayout
@@ -199,21 +235,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine7" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine7"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine8" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine8"
+                    android:textAppearance="@style/customfontstyle" />
 
                 <CheckBox
                     android:id="@+id/cuisine9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cuisine9" />
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cuisine9"
+                    android:textAppearance="@style/customfontstyle" />
             </LinearLayout>
         </LinearLayout>
 
