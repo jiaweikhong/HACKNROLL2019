@@ -20,11 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class GetLocation{
+public class GetLocation extends AppCompatActivity{
     public static final String TAG = "gplaces";
-
-
-
 
     public static final String RESULTS = "results";
     public static final String STATUS = "status";
@@ -52,7 +49,7 @@ public class GetLocation{
 
     // remember to change the browser api key
 
-    public static final String GOOGLE_BROWSER_API_KEY = "@string/google_maps_key";
+    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyAYtGuKBzhpwXPyStjEskz7IQS6S3YSrPY";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 5000;
 
@@ -61,7 +58,7 @@ public class GetLocation{
     public static void loadNearByPlaces(double latitude, double longitude) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
-        String type = "grocery_or_supermarket";
+        String type = "food";
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
         googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);

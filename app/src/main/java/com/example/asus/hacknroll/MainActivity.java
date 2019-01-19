@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             case R.id.gotochecklocation:
+                Log.i(Constants.TAG, "Button Pressed");
+                fromMain = new Intent(this, GetLocation.class);
                 GetLocation.loadNearByPlaces(1.299101, 103.845679);
                 Log.i ( Constants.TAG,"Going to currentlocation" );
                 startActivity(fromMain);
