@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.Response.ErrorListener;
@@ -63,27 +64,23 @@ public class GetLocation extends AppCompatActivity {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         String type = "grocery_or_supermarket";
-        StringBuilder googlePlacesUrl =
-
-                new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
         googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
         googlePlacesUrl.append("&types=").append(type);
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + GOOGLE_BROWSER_API_KEY);
 
-        JsonObjectRequest request = new JsonObjectRequest(googlePlacesUrl.toString(),
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,googlePlacesUrl.toString(),null,
 
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
-
                     public void onResponse(JSONObject result) {
-
                         Log.i(TAG, "onResponse: Result= " + result.toString());
                         parseLocationResult(result);
                     }
                 },
-                new Response.ErrorListener() {
+                new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "onErrorResponse: Error= " + error);
@@ -104,7 +101,6 @@ public class GetLocation extends AppCompatActivity {
 
             if (result.getString(STATUS).equalsIgnoreCase(OK)) {
 
-                mMap.clear();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject place = jsonArray.getJSONObject(i);
@@ -131,7 +127,6 @@ public class GetLocation extends AppCompatActivity {
                     markerOptions.position(latLng);
                     markerOptions.title(placeName + " : " + vicinity);
 
-                    mMap.addMarker(markerOptions);
                 }
 
                 Toast.makeText(getBaseContext(), jsonArray.length() + " Supermarkets found!",
