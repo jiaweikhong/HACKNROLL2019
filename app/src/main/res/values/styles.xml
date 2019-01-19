@@ -7,16 +7,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:windowBackground">@color/activityBackground</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:windowBackground">@color/activityBackground</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:windowBackground">@color/activityBackground</item>
     </style>
 
     <!--
@@ -29,6 +32,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:windowBackground">@color/activityBackground</item>
     </style>
 
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
