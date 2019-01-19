@@ -278,7 +278,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
                 Log.i ( TAG, placeid );
 
 
-                String detailsurl = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeid+"&fields=name,rating,formatted_phone_number,formatted_address&key="+GOOGLE_BROWSER_API_KEY;
+                String detailsurl = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeid+"&fields=name,rating,formatted_address,icon&key="+GOOGLE_BROWSER_API_KEY;
                 loadNearByPlaces ( detailsurl );
 
 
@@ -301,7 +301,9 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         try {
             String pageName = result.getJSONObject ( "result" ).getString("name");
             String rating = result.getJSONObject ( "result" ).getString ( "rating" );
+            String icon = result.getJSONObject ( "result" ).getString ( "icon" );
             String formattedAddress = result.getJSONObject ( "result" ).getString ( "formatted_address" );
+
 
             SharedPreferences.Editor editor =Constants.mPreferences.edit();
             editor.putString(Constants.pageName, pageName);
@@ -312,6 +314,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
             Log.i ( Constants.TAG,pageName );
             Log.i(Constants.TAG,rating);
             Log.i(Constants.TAG,formattedAddress);
+            Log.i(Constants.TAG,icon);
         } catch (JSONException e) {
             e.printStackTrace ( );
             Log.i(Constants.TAG,"Error");
