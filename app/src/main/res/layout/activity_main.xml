@@ -18,12 +18,13 @@
         android:id="@+id/Filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/filters"/>
+        android:text="@string/filters" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:id="@+id/price"
@@ -65,7 +66,8 @@
             android:id="@+id/star"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -193,7 +195,7 @@
 
             <CheckBox
                 android:id="@+id/near_mrt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/near_mrt" />
