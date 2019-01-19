@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.generate_store:
                 String selLocation;
-                int minstar;
-                int maxstar;
+                int minstar = 1;
+                int maxstar = 5;
 
                 // Check if user has input a location
                 selLocation = location.getSelectedItem().toString();
@@ -83,16 +83,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Check if user has input min/max prices/ratings.
-                if (min_star.getSelectedItem().toString().equals("Set Min")){
-                    minstar = 1;
-                }else{
+//                if ((min_star.getSelectedItem().toString()).equals("Set Min")){
+//                    minstar = 1;
+//                }else{
+//                    minstar = Integer.parseInt(min_star.getSelectedItem().toString());
+//                }
+//                if ((max_star.getSelectedItem().toString()).equals("Set Max")){
+//                    maxstar = 5;
+//                }else{
+//                    maxstar = Integer.parseInt(max_star.getSelectedItem().toString());
+//                }
+                try{
                     minstar = Integer.parseInt(min_star.getSelectedItem().toString());
-                }
-                if (max_star.getSelectedItem().toString().equals("Set Max")){
-                    maxstar = 5;
-                }else{
                     maxstar = Integer.parseInt(max_star.getSelectedItem().toString());
+                }catch (Exception ex){
+                    Toast.makeText(MainActivity.this, "Select all spinner", Toast.LENGTH_LONG).show();
+                    break;
                 }
+
+                Log.i(Constants.TAG,"Min: " + minstar);
+                Log.i(Constants.TAG,"Max: " + maxstar);
 
                 // Check if min prices/ratings are less than max prices/ratings
                 if (minstar >= maxstar) {
