@@ -27,14 +27,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Max distance from MRT: " />
+            android:text="Max distance from MRT: "
+            app:fontFamily="@font/open_sans" />
 
         <TextView
             android:id="@+id/max_dist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="200m" />
+            android:text="200m"
+            app:fontFamily="@font/open_sans_light" />
 
         <SeekBar
             android:id="@+id/max_dist"
