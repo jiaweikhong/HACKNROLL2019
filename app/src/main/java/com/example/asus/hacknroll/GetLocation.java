@@ -2,6 +2,7 @@ package com.example.asus.hacknroll;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
@@ -299,13 +300,20 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         try {
             String pageName = result.getJSONObject ( "result" ).getString("name");
             String rating = result.getJSONObject ( "result" ).getString ( "rating" );
-            String formatted_address = result.getJSONObject ( "result" ).getString ( "formatted_address" );
+            String formattedAddress = result.getJSONObject ( "result" ).getString ( "formatted_address" );
 
-            Log.i ( TAG,pageName );
-            Log.i(TAG,rating);
-            Log.i(TAG,formatted_address);
+            SharedPreferences.Editor editor =Constants.mPreferences.edit();
+            editor.putString(Constants.pageName, pageName);
+            editor.putString(Constants.rating, rating);
+            editor.putString(Constants.formattedAddress, formattedAddress);
+            editor.apply();
+
+            Log.i ( Constants.TAG,pageName );
+            Log.i(Constants.TAG,rating);
+            Log.i(Constants.TAG,formattedAddress);
         } catch (JSONException e) {
             e.printStackTrace ( );
+            Log.i(Constants.TAG,"Error");
         }
     }
 }

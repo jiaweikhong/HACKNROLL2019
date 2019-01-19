@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StoreInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -14,6 +15,10 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
     private ImageButton open_gmaps;
     private ImageButton randomize_again;
     private ImageButton return_menu;
+
+    private TextView selected_location;
+    private TextView rating_textview;
+    private TextView selected_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,16 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
         randomize_again.setOnClickListener(this);
         return_menu = findViewById(R.id.return_menu);
         return_menu.setOnClickListener(this);
+
+        selected_location = findViewById(R.id.selected_location);
+        rating_textview = findViewById(R.id.rating_textview);
+        selected_address = findViewById(R.id.selected_address);
+
+        selected_location.setText(Constants.mPreferences.getString(Constants.pageName,"Toast Box"));
+        rating_textview.setText(Constants.mPreferences.getString(Constants.rating,"5"));
+        selected_address.setText(Constants.mPreferences.getString(Constants.formattedAddress,"Bishan"));
+
+
     }
 
     public void onClick(View v){
