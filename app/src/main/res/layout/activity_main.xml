@@ -297,7 +297,7 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/button_find_food_w"
         android:contentDescription="TODO" />
-    
+
 
 
 </LinearLayout>

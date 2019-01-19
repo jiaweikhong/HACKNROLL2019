@@ -20,6 +20,8 @@
         <item>Jurong East MRT</item>
         <item>Dhoby Ghaut MRT</item>
         <item>Tampines MRT</item>
+        <item>Paya Lebar MRT</item>
+        <item>Serangoon MRT</item>
     </string-array>
 
     <string-array name="min_ratings">
@@ -41,6 +43,8 @@
     <string name="DhobyGhaut">1.299101, 103.845679</string>
     <string name="JurongEast">1.334404, 103.742148</string>
     <string name="Tampines">1.355357, 103.942836</string>
+    <string name="PayaLebar">1.318545, 103.893166</string>
+    <string name="Serangoon">1.350947, 103.873803</string>
     <string name="dash">-</string>
 
 
