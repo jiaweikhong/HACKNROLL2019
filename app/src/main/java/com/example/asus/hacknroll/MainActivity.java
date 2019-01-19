@@ -83,22 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Check if user has input min/max prices/ratings.
-//                if ((min_star.getSelectedItem().toString()).equals("Set Min")){
-//                    minstar = 1;
-//                }else{
-//                    minstar = Integer.parseInt(min_star.getSelectedItem().toString());
-//                }
-//                if ((max_star.getSelectedItem().toString()).equals("Set Max")){
-//                    maxstar = 5;
-//                }else{
-//                    maxstar = Integer.parseInt(max_star.getSelectedItem().toString());
-//                }
-                try{
+                if (min_star.getSelectedItemPosition() != 0){
                     minstar = Integer.parseInt(min_star.getSelectedItem().toString());
+                }
+                if (max_star.getSelectedItemPosition() != 0){
                     maxstar = Integer.parseInt(max_star.getSelectedItem().toString());
-                }catch (Exception ex){
-                    Toast.makeText(MainActivity.this, "Select all spinner", Toast.LENGTH_LONG).show();
-                    break;
                 }
 
                 Log.i(Constants.TAG,"Min: " + minstar);
