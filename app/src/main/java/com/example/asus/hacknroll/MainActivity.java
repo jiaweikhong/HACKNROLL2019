@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView max_dist_text;
     private SeekBar max_dist;
     private ImageButton generate_store;
+    private Spinner location;
     private Spinner min_price;
     private Spinner max_price;
     private Spinner min_star;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        location = findViewById(R.id.Location);
         min_price = findViewById(R.id.min_price);
         max_price = findViewById(R.id.max_price);
         min_star = findViewById(R.id.min_star);
@@ -73,10 +75,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent fromMain = null;
         switch(v.getId()) {
             case R.id.generate_store:
+                String selLocation;
                 int minprice;
                 int maxprice;
                 int minstar;
                 int maxstar;
+
+                try{
+                    selLocation = location.toString();
+                }catch (Exception ex){
+                    Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
                 // Check if user has input min/max prices/ratings.
                 try {
                     minprice = Integer.parseInt(min_price.getSelectedItem().toString());
