@@ -15,5 +15,8 @@
     <color name="activityBackground">#f9f9f9</color>
     <color name="alpha0">#00ffffff</color>
     <color name="loadingBG">#ffffff</color>
+    <color name="seek_bar_background">#ababab</color>
+    <color name="seek_bar_progress">#29CB6B</color>
+    <color name="seek_thumb_progress">#00C14E</color>
 
 </resources>
