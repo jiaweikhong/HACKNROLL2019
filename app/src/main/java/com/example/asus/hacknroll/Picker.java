@@ -23,7 +23,7 @@ public class Picker extends AppCompatActivity {
     private TextView mAddress;
     private TextView mAttributions;
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
-            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
+            new LatLng(1.208154, 103.587902), new LatLng(1.455876, 104.041428));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
