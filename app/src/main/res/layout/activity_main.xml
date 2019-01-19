@@ -37,7 +37,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="Max distance from MRT: " />
+                android:text="Max distance from MRT: "
+                android:layout_marginStart="20dp" />
 
             <TextView
                 android:id="@+id/max_dist_text"
@@ -47,7 +48,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:text="200m" />
+                android:text="200m"
+                android:layout_marginEnd="20dp" />
 
         </LinearLayout>
 
@@ -55,7 +57,7 @@
             android:id="@+id/max_dist"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:layout_marginLeft="10dp"
@@ -70,60 +72,63 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/star"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="4"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/star"
+            android:layout_marginStart="10dp"
+            android:contentDescription="TODO" />
+
+        <Spinner
+            android:id="@+id/min_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:entries="@array/min_ratings"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/dash" />
+
+        <Spinner
+            android:id="@+id/max_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:entries="@array/max_ratings"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp" />
+
+    </LinearLayout>
+
+    <!--
+    <LinearLayout
         android:id="@+id/linear_layout_filters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/star"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="4"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/star" />
-
-            <Spinner
-                android:id="@+id/min_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:entries="@array/min_ratings"
-                android:paddingLeft="9dp"
-                android:paddingRight="9dp" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="-" />
-
-            <Spinner
-                android:id="@+id/max_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:entries="@array/max_ratings"
-                android:paddingLeft="9dp"
-                android:paddingRight="9dp" />
-
-        </LinearLayout>
-
-        <!--
         <LinearLayout
             android:id="@+id/price"
             android:layout_width="match_parent"
@@ -277,9 +282,10 @@
                     android:textAppearance="@style/customfontstyle" />
             </LinearLayout>
         </LinearLayout>
-        -->
+
 
     </LinearLayout>
+    -->
 
     <ImageButton
         android:id="@+id/generate_store"
@@ -289,7 +295,8 @@
         android:layout_marginTop="10dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/button_find_food_w" />
+        app:srcCompat="@drawable/button_find_food_w"
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/gotochecklocation"
