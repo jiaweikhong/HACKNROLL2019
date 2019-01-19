@@ -12,7 +12,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.Response.ErrorListener;
 import com.google.android.gms.common.api.Response;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -20,7 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class GetLocation extends AppCompatActivity{
+public class GetLocation extends AppCompatActivity implements OnMapReadyCallback{
+
+
     public static final String TAG = "gplaces";
 
     public static final String RESULTS = "results";
@@ -51,11 +59,36 @@ public class GetLocation extends AppCompatActivity{
 
     public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyAYtGuKBzhpwXPyStjEskz7IQS6S3YSrPY";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    public static final int PROXIMITY_RADIUS = 5000;
+    public static final int PROXIMITY_RADIUS = 500;
 
 
 
-    public static void loadNearByPlaces(double latitude, double longitude) {
+    public GoogleMap mMap;
+
+    @Override
+    protected void onCreate ( Bundle savedInstanceState ) {
+        super.onCreate ( savedInstanceState );
+        setContentView ( R.layout.activity_maps );
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( )
+                .findFragmentById ( R.id.map );
+        mapFragment.getMapAsync ( this );
+        loadNearByPlaces(1.299101, 103.845679);
+    }
+
+    @Override
+    public void onMapReady ( GoogleMap googleMap ) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLngBounds Singapore = new LatLngBounds( new LatLng(1.214452, 103.603346), new LatLng(1.455876, 104.041428));
+        mMap.moveCamera ( CameraUpdateFactory.newLatLngBounds ( Singapore, 2 ) );
+
+    }
+
+
+
+    private void loadNearByPlaces(double latitude, double longitude) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         String type = "food";
@@ -86,7 +119,7 @@ public class GetLocation extends AppCompatActivity{
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    private static void parseLocationResult(JSONObject result) {
+    private void parseLocationResult(JSONObject result) {
 
         String id, place_id, placeName = null, reference, icon, vicinity = null;
         double latitude, longitude;
@@ -121,9 +154,12 @@ public class GetLocation extends AppCompatActivity{
                     LatLng latLng = new LatLng (latitude, longitude);
                     markerOptions.position(latLng);
                     markerOptions.title(placeName + " : " + vicinity);
+                    Log.i(TAG, markerOptions.getTitle());
+
+                    mMap.addMarker(markerOptions);
 
                 }
-
+                Log.i(TAG, jsonArray.getString(0));
                 Log.i(TAG, jsonArray.length() + " Supermarkets found!");
             } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
                 Log.i(TAG,"No Supermarket found in 5KM radius!!!");
