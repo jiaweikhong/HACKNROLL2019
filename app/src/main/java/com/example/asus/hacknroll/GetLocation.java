@@ -94,8 +94,9 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.cuteloading);
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("Location");
+        //Intent intent = getIntent();
+        String location = Constants.mPreferences.getString(Constants.selLocation,"DhobyGhaut");
+        location = getString(getResources().getIdentifier(location, "string", getPackageName()));
         String[] locationsplit = location.split(",");
         currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
         Log.i(TAG, currentLocation.toString());
