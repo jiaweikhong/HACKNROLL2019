@@ -17,31 +17,24 @@
     <string name="filters">Filters</string>
     <string-array name="Locations">
         <item>Select Location</item>
-        <item>Bedok</item>
-        <item>Orchard</item>
+        <item>Jurong East MRT</item>
+        <item>Dhoby Ghaut MRT</item>
+        <item>Tampines MRT</item>
     </string-array>
+
     <string-array name="min_ratings">
         <item>Set min</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
-        <item>5</item>
     </string-array>
     <string-array name="max_ratings">
         <item>Set max</item>
-        <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
-    </string-array>
-    <string-array name="Price_Ratings">
-        <item>$</item>
-        <item>$$</item>
-        <item>$$$</item>
-        <item>$$$$</item>
-        <item>$$$$$</item>
     </string-array>
 
     <string name="title_activity_picker">Picker</string>
