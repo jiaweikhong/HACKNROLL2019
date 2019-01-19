@@ -20,8 +20,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class GetLocation extends AppCompatActivity {
+public class GetLocation{
     public static final String TAG = "gplaces";
+
+
+
 
     public static final String RESULTS = "results";
     public static final String STATUS = "status";
@@ -52,15 +55,10 @@ public class GetLocation extends AppCompatActivity {
     public static final String GOOGLE_BROWSER_API_KEY = "@string/google_maps_key";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 5000;
-    @Override
-    protected void onCreate ( @Nullable Bundle savedInstanceState ) {
-        super.onCreate ( savedInstanceState );
-        setContentView(R.layout.activity_places_api);
-
-    }
 
 
-        private void loadNearByPlaces(double latitude, double longitude) {
+
+    public static void loadNearByPlaces(double latitude, double longitude) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         String type = "grocery_or_supermarket";
@@ -91,7 +89,7 @@ public class GetLocation extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(request);
     }
 
-    private void parseLocationResult(JSONObject result) {
+    private static void parseLocationResult(JSONObject result) {
 
         String id, place_id, placeName = null, reference, icon, vicinity = null;
         double latitude, longitude;
@@ -129,13 +127,9 @@ public class GetLocation extends AppCompatActivity {
 
                 }
 
-                Toast.makeText(getBaseContext(), jsonArray.length() + " Supermarkets found!",
-
-                        Toast.LENGTH_LONG).show();
+                Log.i(TAG, jsonArray.length() + " Supermarkets found!");
             } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
-                Toast.makeText(getBaseContext(), "No Supermarket found in 5KM radius!!!",
-
-                        Toast.LENGTH_LONG).show();
+                Log.i(TAG,"No Supermarket found in 5KM radius!!!");
             }
 
         } catch (JSONException e) {
