@@ -20,12 +20,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SeekBar max_dist;
     private ImageButton generate_store;
     private Spinner location;
-    private Spinner min_price;
-    private Spinner max_price;
     private Spinner min_star;
     private Spinner max_star;
     private Button gotocheckcurrentlocation;
     private Button getlocation;
+    private Integer radius;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     max_dist_text.setText("1km");
                 }
+                radius = progress * 200 +200;
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         location = findViewById(R.id.Location);
-        min_price = findViewById(R.id.min_price);
-        max_price = findViewById(R.id.max_price);
         min_star = findViewById(R.id.min_star);
         max_star = findViewById(R.id.max_star);
 
@@ -76,11 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.generate_store:
                 String selLocation;
-                int minprice;
-                int maxprice;
-                int minstar;
-                int maxstar;
+                int minstar = 1;
+                int maxstar = 5;
 
+                // Check if user has input a location
                 selLocation = location.getSelectedItem().toString();
                 if (selLocation.equals("Select Location")){
                     Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
@@ -88,20 +85,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Check if user has input min/max prices/ratings.
-                try {
-                    minprice = Integer.parseInt(min_price.getSelectedItem().toString());
-                    maxprice = Integer.parseInt(max_price.getSelectedItem().toString());
+                if (min_star.getSelectedItemPosition() != 0){
                     minstar = Integer.parseInt(min_star.getSelectedItem().toString());
+                }
+                if (max_star.getSelectedItemPosition() != 0){
                     maxstar = Integer.parseInt(max_star.getSelectedItem().toString());
-                } catch(Exception ex) {
-                    Toast.makeText(MainActivity.this, "Please fill in all dropdowns!", Toast.LENGTH_LONG).show();
-                    break;
                 }
 
+                Log.i(Constants.TAG,"Min: " + minstar);
+                Log.i(Constants.TAG,"Max: " + maxstar);
+
                 // Check if min prices/ratings are less than max prices/ratings
-                if (minprice >= maxprice) {
-                    Toast.makeText(MainActivity.this, "Max price has to be higher than min price!", Toast.LENGTH_LONG).show();
-                } else if (minstar >= maxstar) {
+                if (minstar >= maxstar) {
                     Toast.makeText(MainActivity.this, "Max rating has to be higher than min rating!", Toast.LENGTH_LONG).show();
                 } else {
                     fromMain = new Intent(this, LoadingScreen.class);
@@ -113,7 +108,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.gotochecklocation:
                 Log.i(Constants.TAG, "Button Pressed");
                 fromMain = new Intent(this, GetLocation.class);
-                Log.i ( Constants.TAG,"Going to current location" );
+                selLocation = location.getSelectedItem().toString();
+                if (selLocation.equals("Select Location")){
+                    Toast.makeText(MainActivity.this, "Please select a location", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                fromMain.putExtra("Location",getResources().getIdentifier(selLocation, "string", getPackageName()));
+                fromMain.putExtra("Radius", radius);
+                //fromMain.putExtra("Radius")
+                Log.i ( Constants.TAG,"Going to currentlocation" );
                 startActivity(fromMain);
                 break;
         }
