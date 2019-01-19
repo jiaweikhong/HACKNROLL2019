@@ -52,7 +52,7 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
 
                 //Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
 
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=37.7749,-122.4194");
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=46.414382,10.013988"  );
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
