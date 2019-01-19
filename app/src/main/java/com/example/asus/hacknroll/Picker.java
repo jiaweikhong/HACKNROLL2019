@@ -22,6 +22,10 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.ParseException;
+
 
 public class Picker extends AppCompatActivity {
     private static final int PLACE_PICKER_REQUEST = 1;
@@ -83,4 +87,6 @@ public class Picker extends AppCompatActivity {
 
 
 
+
 }
+
