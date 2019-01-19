@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (minstar >= maxstar) {
                     Toast.makeText(MainActivity.this, "Max rating has to be higher than min rating!", Toast.LENGTH_LONG).show();
                 } else {
-                    fromMain = new Intent(this, StoreInfoActivity.class);
-                    Log.i(Constants.TAG,"going to store info page");
+                    fromMain = new Intent(this, LoadingScreen.class);
+                    Log.i(Constants.TAG,"going to loading page");
                     startActivity(fromMain);
                     break;
                 }
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.gotochecklocation:
                 Log.i(Constants.TAG, "Button Pressed");
                 fromMain = new Intent(this, GetLocation.class);
-                Log.i ( Constants.TAG,"Going to currentlocation" );
+                Log.i ( Constants.TAG,"Going to current location" );
                 startActivity(fromMain);
                 break;
         }

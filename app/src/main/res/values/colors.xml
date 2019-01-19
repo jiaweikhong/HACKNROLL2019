@@ -14,5 +14,6 @@
     <color name="colorSecondaryDark">#FFB834</color>
     <color name="activityBackground">#f9f9f9</color>
     <color name="alpha0">#00ffffff</color>
+    <color name="loadingBG">#ffffff</color>
 
 </resources>
