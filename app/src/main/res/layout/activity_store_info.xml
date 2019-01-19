@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:foreground="@drawable/gradient"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[14]" />
+        android:src="@drawable/toastbox" />
 
     <TextView
         android:id="@+id/selected_location"
