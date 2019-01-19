@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class GetLocation extends AppCompatActivity implements OnMapReadyCallback{
+public class GetLocation extends AppCompatActivity implements OnMapReadyCallback {
 
 
     public static final String TAG = "gplaces";
@@ -66,15 +66,15 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
-    final StringBuilder original = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-
+    final StringBuilder original = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
 
 
     public GoogleMap mMap;
     public boolean nextpage = false;
     public String nextjson = null;
 
-    public HashMap<Integer, MarkerOptions > a = new HashMap <Integer, MarkerOptions> (  );
+    public HashMap <Integer, MarkerOptions> a = new HashMap <Integer, MarkerOptions> ( );
+    public HashMap <Integer, String> b = new HashMap <Integer, String> ( );
 
     public LatLng currentLocation;
     public Integer radius;
@@ -84,11 +84,11 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("Location");
-        String[] locationsplit = location.split(",");
-        currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
-        radius = intent.getIntExtra("Radius", 0);
+        Intent intent = getIntent ( );
+        String location = intent.getStringExtra ( "Location" );
+        String[] locationsplit = location.split ( "," );
+        currentLocation = new LatLng ( Double.parseDouble ( locationsplit[0] ), Double.parseDouble ( locationsplit[1] ) );
+        radius = intent.getIntExtra ( "Radius", 0 );
 
         setContentView ( R.layout.activity_maps );
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -102,13 +102,11 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLngBounds Singapore = new LatLngBounds( currentLocation, currentLocation);
-        mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
-        for(int distance=200; distance<=radius; distance+=200 ) {
-            loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
+        LatLngBounds Singapore = new LatLngBounds ( currentLocation, currentLocation );
+        mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter ( ), 14 ) );
+        for (int distance = 200; distance <= radius; distance += 200) {
+            loadNearByPlaces ( currentLocation.latitude, currentLocation.longitude, 200 );
         }
-
-
 
 
 //        MarkerOptions m = a.get(0);
@@ -116,7 +114,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 //
 //
 //        AppController.getInstance().addToRequestQueue(request);
-
 
 
         //final String combined = original + "pagetoken=" + nextjson + "&key=" + GOOGLE_BROWSER_API_KEY;
@@ -127,71 +124,71 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-
-    private void loadNearByPlaces(double latitude, double longitude, Integer radius) {
+    private void loadNearByPlaces ( double latitude, double longitude, Integer radius ) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         String type = "restaurant";
-        final StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
-        googlePlacesUrl.append("&radius=").append(radius);
-        googlePlacesUrl.append("&types=").append(type);
-        googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + GOOGLE_BROWSER_API_KEY);
+        final StringBuilder googlePlacesUrl = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
+        googlePlacesUrl.append ( "location=" ).append ( latitude ).append ( "," ).append ( longitude );
+        googlePlacesUrl.append ( "&radius=" ).append ( radius );
+        googlePlacesUrl.append ( "&types=" ).append ( type );
+        googlePlacesUrl.append ( "&sensor=true" );
+        googlePlacesUrl.append ( "&key=" + GOOGLE_BROWSER_API_KEY );
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,googlePlacesUrl.toString(),null,
+        JsonObjectRequest request = new JsonObjectRequest ( Request.Method.GET, googlePlacesUrl.toString ( ), null,
 
-                new com.android.volley.Response.Listener<JSONObject>() {
+                new com.android.volley.Response.Listener <JSONObject> ( ) {
                     @Override
-                    public void onResponse(JSONObject result) {
-                        Log.i(TAG, "onResponse: Result= " + result.toString());
-                        parseLocationResult(result);
+                    public void onResponse ( JSONObject result ) {
+                        Log.i ( TAG, "onResponse: Result= " + result.toString ( ) );
+                        parseLocationResult ( result );
                     }
                 },
-                new com.android.volley.Response.ErrorListener() {
+                new com.android.volley.Response.ErrorListener ( ) {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: Error= " + error);
-                        Log.e(TAG, "onErrorResponse: Error= " + error.getMessage());
+                    public void onErrorResponse ( VolleyError error ) {
+                        Log.e ( TAG, "onErrorResponse: Error= " + error );
+                        Log.e ( TAG, "onErrorResponse: Error= " + error.getMessage ( ) );
                     }
-                });
+                } );
 
-        AppController.getInstance().addToRequestQueue(request);
+        AppController.getInstance ( ).addToRequestQueue ( request );
     }
 
 
-    private void loadNearByPlaces(String jsonurl) {
+    private void loadNearByPlaces ( String jsonurl ) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,jsonurl,null,
+        JsonObjectRequest request = new JsonObjectRequest ( Request.Method.GET, jsonurl, null,
 
-                new com.android.volley.Response.Listener<JSONObject>() {
+                new com.android.volley.Response.Listener <JSONObject> ( ) {
                     @Override
-                    public void onResponse(JSONObject result) {
-                        Log.i(TAG, "onResponse: Second Result= " + result.toString());
-                        parseLocationResult(result);
+                    public void onResponse ( JSONObject result ) {
+                        Log.i ( TAG, "Checking for result " + result.toString ( ) );
+                        //parseLocationResult(result);
+                        parsePlaceID ( result );
                     }
                 },
-                new com.android.volley.Response.ErrorListener() {
+                new com.android.volley.Response.ErrorListener ( ) {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "onErrorResponse: Error= " + error);
-                        Log.e(TAG, "onErrorResponse: Error= " + error.getMessage());
+                    public void onErrorResponse ( VolleyError error ) {
+                        Log.e ( TAG, "onErrorResponse: Error= " + error );
+                        Log.e ( TAG, "onErrorResponse: Error= " + error.getMessage ( ) );
                     }
-                });
+                } );
 
-        AppController.getInstance().addToRequestQueue(request);
+        AppController.getInstance ( ).addToRequestQueue ( request );
     }
 
-    private void parseLocationResult(JSONObject result) {
+    private void parseLocationResult ( JSONObject result ) {
 
 
         String id, place_id, placeName = null, reference, icon, vicinity = null;
         double latitude, longitude;
 
         try {
-            JSONArray jsonArray = result.getJSONArray("results");
+            JSONArray jsonArray = result.getJSONArray ( "results" );
 //            HashMap<Integer, MarkerOptions> a = new HashMap <Integer, MarkerOptions> ( jsonArray.length () );
 //            if(result.has("next_page_token")) {
 //                nextjson = result.getString("next_page_token");
@@ -200,59 +197,84 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 //                nextjson = null;
 //            }
 
-            if (result.getString(STATUS).equalsIgnoreCase(OK)) {
+            if (result.getString ( STATUS ).equalsIgnoreCase ( OK )) {
 
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject place = jsonArray.getJSONObject(i);
+                for (int i = 0; i < jsonArray.length ( ); i++) {
+                    JSONObject place = jsonArray.getJSONObject ( i );
 
-                    id = place.getString(SUPERMARKET_ID);
-                    place_id = place.getString(PLACE_ID);
-                    if (!place.isNull(NAME)) {
-                        placeName = place.getString(NAME);
+                    id = place.getString ( SUPERMARKET_ID );
+                    place_id = place.getString ( PLACE_ID );
+                    if (!place.isNull ( NAME )) {
+                        placeName = place.getString ( NAME );
                     }
-                    if (!place.isNull(VICINITY)) {
-                        vicinity = place.getString(VICINITY);
+                    if (!place.isNull ( VICINITY )) {
+                        vicinity = place.getString ( VICINITY );
                     }
-                    latitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
+                    latitude = place.getJSONObject ( GEOMETRY ).getJSONObject ( LOCATION )
 
-                            .getDouble(LATITUDE);
-                    longitude = place.getJSONObject(GEOMETRY).getJSONObject(LOCATION)
+                            .getDouble ( LATITUDE );
+                    longitude = place.getJSONObject ( GEOMETRY ).getJSONObject ( LOCATION )
 
-                            .getDouble(LONGITUDE);
-                    reference = place.getString(REFERENCE);
-                    icon = place.getString(ICON);
+                            .getDouble ( LONGITUDE );
+                    reference = place.getString ( REFERENCE );
+                    icon = place.getString ( ICON );
 
-                    MarkerOptions markerOptions = new MarkerOptions ();
-                    LatLng latLng = new LatLng (latitude, longitude);
-                    markerOptions.position(latLng);
-                    markerOptions.title(placeName + " : " + vicinity);
-                    Log.i(TAG, markerOptions.getTitle());
-                    mMap.clear ();
-                    a.put (i,  markerOptions );
+                    MarkerOptions markerOptions = new MarkerOptions ( );
+                    LatLng latLng = new LatLng ( latitude, longitude );
+                    markerOptions.position ( latLng );
+                    markerOptions.title ( placeName + " : " + vicinity );
+                    Log.i ( TAG, markerOptions.getTitle ( ) );
+                    mMap.clear ( );
+                    a.put ( i, markerOptions );
+                    b.put ( i, place_id );
                     //mMap.addMarker ( markerOptions );
 
                 }
                 int min = 0;
-                int max = a.size()-1;
-                Log.i(TAG, "Size of hashmap: " + a.size());
+                int max = a.size ( ) - 1;
+                Log.i ( TAG, "Size of hashmap: " + a.size ( ) );
 
 
-                int k = (int)(Math.random() * ((max - min) + 1)) + min;
-                Log.i(TAG,"Random Number: " + String.valueOf(k));
+                int k = (int) (Math.random ( ) * ((max - min) + 1)) + min;
+                Log.i ( TAG, "Random Number: " + String.valueOf ( k ) );
                 MarkerOptions m = a.get ( k );
+                String placeid = b.get ( k );
+
+
+                Log.i ( TAG, placeid );
+
+
+                String detailsurl = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeid+"&fields=name,rating,formatted_phone_number,formatted_address&key="+GOOGLE_BROWSER_API_KEY;
+                loadNearByPlaces ( detailsurl );
+
 
                 mMap.addMarker ( m );
 
-                Log.i(TAG, jsonArray.length() + " Supermarkets found!");
-            } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
-                Log.i(TAG,"No Supermarket found in 5KM radius!!!");
+                Log.i ( TAG, jsonArray.length ( ) + " Supermarkets found!" );
+            } else if (result.getString ( STATUS ).equalsIgnoreCase ( ZERO_RESULTS )) {
+                Log.i ( TAG, "No Supermarket found in 5KM radius!!!" );
             }
 
         } catch (JSONException e) {
 
-            e.printStackTrace();
-            Log.e(TAG, "parseLocationResult: Error=" + e.getMessage());
+            e.printStackTrace ( );
+            Log.e ( TAG, "parseLocationResult: Error=" + e.getMessage ( ) );
+        }
+    }
+
+
+    private void parsePlaceID ( JSONObject result ) {
+        try {
+            String pageName = result.getJSONObject ( "result" ).getString("name");
+            String rating = result.getJSONObject ( "result" ).getString ( "rating" );
+            String formatted_address = result.getJSONObject ( "result" ).getString ( "formatted_address" );
+
+            Log.i ( TAG,pageName );
+            Log.i(TAG,rating);
+            Log.i(TAG,formatted_address);
+        } catch (JSONException e) {
+            e.printStackTrace ( );
         }
     }
 }
