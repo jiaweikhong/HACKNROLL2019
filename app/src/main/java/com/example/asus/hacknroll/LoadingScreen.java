@@ -33,7 +33,7 @@ class GetTask extends AsyncTask<Object, Void, String> {
     @Override
     protected String doInBackground(Object... params) {
         // insert code to find the place
-        try { Thread.sleep(5000); }
+        try { Thread.sleep(3000); }
         catch (InterruptedException ex) { android.util.Log.d("YourApplicationName", ex.toString()); }
         return null;
     }

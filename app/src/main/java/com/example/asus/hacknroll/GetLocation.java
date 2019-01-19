@@ -1,6 +1,8 @@
 package com.example.asus.hacknroll;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
 import android.os.Handler;
@@ -63,7 +65,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     // remember to change the browser api key
 
-    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
+    public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyDGwpilUpfUNOrAuSEdtlNInt7n7k-eVmI";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
     final StringBuilder original = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
@@ -77,24 +79,34 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     public HashMap <Integer, String> b = new HashMap <Integer, String> ( );
 
     public LatLng currentLocation;
-    public Integer radius;
+    public Integer radius = 200;
+    public int j = 0;
 
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
+        j = 0;
 
-        Intent intent = getIntent ( );
-        String location = intent.getStringExtra ( "Location" );
-        String[] locationsplit = location.split ( "," );
-        currentLocation = new LatLng ( Double.parseDouble ( locationsplit[0] ), Double.parseDouble ( locationsplit[1] ) );
-        radius = intent.getIntExtra ( "Radius", 0 );
+        setContentView(R.layout.activity_loading_screen);
 
-        setContentView ( R.layout.activity_maps );
+
+        GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
+        gifImageView.setGifImageResource(R.drawable.cuteloading);
+
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("Location");
+        String[] locationsplit = location.split(",");
+        currentLocation = new LatLng(Double.parseDouble(locationsplit[0]), Double.parseDouble(locationsplit[1]));
+        Log.i(TAG, currentLocation.toString());
+        radius = Constants.mPreferences.getInt(Constants.selRadius,200);
+
+        //setContentView ( R.layout.activity_maps );
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( )
                 .findFragmentById ( R.id.map );
         mapFragment.getMapAsync ( this );
+        new GetTask(this).execute();
     }
 
     @Override
@@ -102,27 +114,46 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLngBounds Singapore = new LatLngBounds ( currentLocation, currentLocation );
-        mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter ( ), 14 ) );
-        for (int distance = 200; distance <= radius; distance += 200) {
-            loadNearByPlaces ( currentLocation.latitude, currentLocation.longitude, 200 );
+        LatLngBounds Singapore = new LatLngBounds( currentLocation, currentLocation);
+        mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
+        /*
+        for(int distance=200; distance<=radius; distance+=200 ) {
+            loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
         }
-
-
-//        MarkerOptions m = a.get(0);
-//        mMap.addMarker(m);
-//
-//
-//        AppController.getInstance().addToRequestQueue(request);
-
-
-        //final String combined = original + "pagetoken=" + nextjson + "&key=" + GOOGLE_BROWSER_API_KEY;
-        //Log.i(TAG, "this is the new url: " + combined);
-        //loadNearByPlaces(combined);
-
+        */
 
     }
 
+    class GetTask extends AsyncTask<Object, Void, String>
+
+    {
+
+        Context context;
+
+        GetTask(Context context) {
+        this.context = context;
+    }
+
+        @Override
+        protected String doInBackground(Object... params) {
+        // insert code to find the place
+            Log.i(TAG, "this is the radius: " + radius);
+            for(int distance=200; distance<=radius; distance+=200 ) {
+                loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
+            }
+            return a.toString();
+    }
+
+        @Override
+        protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        Log.i(TAG, result);
+        // go to the page
+        Intent fromLoadScreen = new Intent(context, StoreInfoActivity.class);
+        Log.i(Constants.TAG,"going to store info page");
+        context.startActivity(fromLoadScreen);
+    }
+    }
 
     private void loadNearByPlaces ( double latitude, double longitude, Integer radius ) {
 //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
@@ -252,8 +283,8 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
                 mMap.addMarker ( m );
 
                 Log.i ( TAG, jsonArray.length ( ) + " Supermarkets found!" );
-            } else if (result.getString ( STATUS ).equalsIgnoreCase ( ZERO_RESULTS )) {
-                Log.i ( TAG, "No Supermarket found in 5KM radius!!!" );
+            } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
+                Log.i(TAG,"No restaurants found in radius!");
             }
 
         } catch (JSONException e) {
