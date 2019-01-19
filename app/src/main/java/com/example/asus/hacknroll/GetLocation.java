@@ -1,6 +1,7 @@
 package com.example.asus.hacknroll;
 
 import android.os.Bundle;
+import java.util.concurrent.ThreadLocalRandom;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class GetLocation extends AppCompatActivity implements OnMapReadyCallback{
@@ -69,6 +73,9 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     public boolean nextpage = false;
     public String nextjson = null;
 
+    public HashMap<Integer, MarkerOptions > a = new HashMap <Integer, MarkerOptions> (  );
+
+
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -89,6 +96,18 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         loadNearByPlaces(1.299101, 103.845679, 100);
         loadNearByPlaces(1.299101, 103.845679, 200);
         loadNearByPlaces(1.299101, 103.845679, 400);
+
+
+
+
+//        MarkerOptions m = a.get(0);
+//        mMap.addMarker(m);
+//
+//
+//        AppController.getInstance().addToRequestQueue(request);
+
+
+
         //final String combined = original + "pagetoken=" + nextjson + "&key=" + GOOGLE_BROWSER_API_KEY;
         //Log.i(TAG, "this is the new url: " + combined);
         //loadNearByPlaces(combined);
@@ -156,17 +175,19 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
     private void parseLocationResult(JSONObject result) {
 
+
         String id, place_id, placeName = null, reference, icon, vicinity = null;
         double latitude, longitude;
 
         try {
             JSONArray jsonArray = result.getJSONArray("results");
-            if(result.has("next_page_token")) {
-                nextjson = result.getString("next_page_token");
-                Log.i(TAG, nextjson);
-            } else {
-                nextjson = null;
-            }
+//            HashMap<Integer, MarkerOptions> a = new HashMap <Integer, MarkerOptions> ( jsonArray.length () );
+//            if(result.has("next_page_token")) {
+//                nextjson = result.getString("next_page_token");
+//                Log.i(TAG, nextjson);
+//            } else {
+//                nextjson = null;
+//            }
 
             if (result.getString(STATUS).equalsIgnoreCase(OK)) {
 
@@ -196,10 +217,20 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
                     markerOptions.position(latLng);
                     markerOptions.title(placeName + " : " + vicinity);
                     Log.i(TAG, markerOptions.getTitle());
-
-                    mMap.addMarker(markerOptions);
+                    mMap.clear ();
+                    a.put (i,  markerOptions );
+                    //mMap.addMarker ( markerOptions );
 
                 }
+                int min = 0;
+                int max = a.size ()-1;
+
+
+                int k = (int)(Math.random() * ((max - min) + 1)) + min;
+                MarkerOptions m = a.get ( k );
+
+                mMap.addMarker ( m );
+
                 Log.i(TAG, jsonArray.length() + " Supermarkets found!");
             } else if (result.getString(STATUS).equalsIgnoreCase(ZERO_RESULTS)) {
                 Log.i(TAG,"No Supermarket found in 5KM radius!!!");
