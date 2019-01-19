@@ -228,5 +228,17 @@
         android:background="@null"
         app:srcCompat="@drawable/yellowbutton" />
 
+    <Button
+        android:id="@+id/gotochecklocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/getlocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Location" />
+
 
 </LinearLayout>
