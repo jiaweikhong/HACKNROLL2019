@@ -42,8 +42,8 @@ class GetTask extends AsyncTask<Object, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         // go to the page
-        Intent fromLoadScreen = new Intent(context, StoreInfoActivity.class);
-        Log.i(Constants.TAG,"going to store info page");
+        Intent fromLoadScreen = new Intent(context, MainActivity.class);
+        Log.i(Constants.TAG,"going to MainActivity");
         context.startActivity(fromLoadScreen);
     }
 }

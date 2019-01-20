@@ -7,6 +7,17 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/catchpharse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:text="@string/let_us_decide_a_place_for_you"
+        android:textSize="24sp" />
+
     <Spinner
         android:id="@+id/Location"
         android:layout_width="wrap_content"
@@ -16,6 +27,7 @@
         android:layout_marginBottom="10dp"
         android:entries="@array/Locations"
         android:paddingLeft="20dp"
+        android:gravity="center"
         android:paddingRight="20dp" />
 
     <LinearLayout
@@ -34,11 +46,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="Max distance from MRT: "
-                android:layout_marginStart="20dp" />
+                android:text="@string/max_distance_from_mrt" />
 
             <TextView
                 android:id="@+id/max_dist_text"
@@ -46,10 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:text="200m"
-                android:layout_marginEnd="20dp" />
+                android:text="@string/_200m" />
 
         </LinearLayout>
 
@@ -59,9 +71,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:max="4"
@@ -70,6 +82,15 @@
             android:thumb="@drawable/seek_thumb" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/Filter_by_ratings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/filter_by_ratings" />
 
     <LinearLayout
         android:id="@+id/star"
@@ -84,40 +105,46 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="4"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/star"
             android:layout_marginStart="10dp"
-            android:contentDescription="TODO" />
+            android:layout_marginLeft="50dp"
+            android:layout_weight="5"
+            android:contentDescription="@string/todo"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/star" />
 
         <Spinner
             android:id="@+id/min_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.1"
             android:entries="@array/min_ratings"
-            android:paddingLeft="9dp"
-            android:paddingRight="9dp" />
+            android:paddingRight="30dp"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="@string/dash" />
+            android:text="@string/dash"
+            android:textAlignment="center" />
 
         <Spinner
             android:id="@+id/max_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
             android:entries="@array/max_ratings"
-            android:paddingLeft="9dp"
-            android:paddingRight="9dp" />
+            android:paddingRight="30dp"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -294,9 +321,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:background="@null"
+        android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/button_find_food_w"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/button_find_food_w" />
     
 
 

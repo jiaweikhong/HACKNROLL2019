@@ -42,7 +42,12 @@
     <string name="JurongEast">1.334404, 103.742148</string>
     <string name="Tampines">1.355357, 103.942836</string>
     <string name="dash">-</string>
-
+    <string name="filter_by_ratings">Filter by Ratings:</string>
+    <string name="max_distance_from_mrt">Max distance from MRT:</string>
+    <string name="_200m">200m</string>
+    <string name="todo">TODO</string>
+    <string name="_5">5</string>
+    <string name="let_us_decide_a_place_for_you">Let us decide a place for you!</string>
 
 
 </resources>
