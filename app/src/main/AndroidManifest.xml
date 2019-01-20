@@ -58,7 +58,8 @@
         <activity
             android:name=".StoreInfoActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:label="@string/store_activity_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
@@ -66,7 +67,7 @@
         <activity
             android:name=".GetLocation"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

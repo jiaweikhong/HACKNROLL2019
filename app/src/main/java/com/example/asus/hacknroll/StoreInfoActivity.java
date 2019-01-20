@@ -26,6 +26,7 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
     private ImageButton return_menu;
 
     // Set store info
+    private String restaurant_name;
     private TextView selected_location;
     private TextView rating_textview;
     private TextView selected_address;
@@ -36,6 +37,7 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_info);
+
         Log.i(Constants.TAG,"in store info");
 
         open_gmaps = findViewById(R.id.open_gmaps);
