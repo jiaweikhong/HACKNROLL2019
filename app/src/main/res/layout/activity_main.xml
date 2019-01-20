@@ -158,7 +158,6 @@
         android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/button_find_food_w" />
-    
 
 
 </LinearLayout>
