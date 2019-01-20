@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
         <item name="android:windowBackground">@color/activityBackground</item>
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
@@ -15,31 +15,31 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
         <item name="android:windowBackground">@color/activityBackground</item>
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
         <item name="android:windowBackground">@color/activityBackground</item>
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="checkboxStyle" parent="Base.Theme.AppCompat">
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
         <item name="android:windowBackground">@color/activityBackground</item>
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
-        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/opensans</item>
     </style>
 </resources>

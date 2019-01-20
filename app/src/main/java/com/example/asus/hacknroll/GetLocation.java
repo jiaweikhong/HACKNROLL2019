@@ -37,7 +37,6 @@ import java.util.HashMap;
 
 public class GetLocation extends AppCompatActivity implements OnMapReadyCallback {
 
-
     public static final String TAG = "gplaces";
 
     public static final String RESULTS = "results";
@@ -51,7 +50,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     public static final String INVALID_REQUEST = "INVALID_REQUEST";
 
     //    Key for nearby places json from google
-
     public static final String GEOMETRY = "geometry";
     public static final String LOCATION = "location";
     public static final String LATITUDE = "lat";
@@ -65,12 +63,10 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     public static final String PLACE_NAME = "place_name";
 
     // remember to change the browser api key
-
     public static final String GOOGLE_BROWSER_API_KEY = "AIzaSyCtT7nSyTOaTKv5IQSRZ6WkUiBwR69zvcw";
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int PROXIMITY_RADIUS = 200;
     final StringBuilder original = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
-
 
     public GoogleMap mMap;
     public boolean nextpage = false;
@@ -90,7 +86,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         j = 0;
 
         setContentView(R.layout.activity_loading_screen);
-
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.cuteloading);
@@ -118,20 +113,11 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLngBounds Singapore = new LatLngBounds( currentLocation, currentLocation);
         mMap.moveCamera ( CameraUpdateFactory.newLatLngZoom ( Singapore.getCenter(), 14 ) );
-        /*
-        for(int distance=200; distance<=radius; distance+=200 ) {
-            loadNearByPlaces(currentLocation.latitude, currentLocation.longitude, distance);
-        }
-        */
 
     }
 
-    class GetTask extends AsyncTask<Object, Void, String>
-
-    {
-
+    class GetTask extends AsyncTask<Object, Void, String> {
         Context context;
-
         GetTask(Context context) {
         this.context = context;
     }
@@ -163,7 +149,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void loadNearByPlaces ( double latitude, double longitude, Integer radius ) {
-//YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
+    //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         String type = "restaurant";
         final StringBuilder googlePlacesUrl = new StringBuilder ( "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" );
@@ -195,8 +181,7 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
 
     private void loadNearByPlaces ( String jsonurl ) {
-//YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
-
+    //YOU Can change this type at your own will, e.g hospital, cafe, restaurant.... and see how it all works
 
         JsonObjectRequest request = new JsonObjectRequest ( Request.Method.GET, jsonurl, null,
 
@@ -227,13 +212,6 @@ public class GetLocation extends AppCompatActivity implements OnMapReadyCallback
 
         try {
             JSONArray jsonArray = result.getJSONArray ( "results" );
-//            HashMap<Integer, MarkerOptions> a = new HashMap <Integer, MarkerOptions> ( jsonArray.length () );
-//            if(result.has("next_page_token")) {
-//                nextjson = result.getString("next_page_token");
-//                Log.i(TAG, nextjson);
-//            } else {
-//                nextjson = null;
-//            }
 
             if (result.getString ( STATUS ).equalsIgnoreCase ( OK )) {
 

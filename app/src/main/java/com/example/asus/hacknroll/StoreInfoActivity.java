@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,15 +20,16 @@ import java.net.URL;
 
 public class StoreInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Buttons
     private ImageButton open_gmaps;
     private ImageButton randomize_again;
     private ImageButton return_menu;
 
+    // Set store info
     private TextView selected_location;
     private TextView rating_textview;
     private TextView selected_address;
     private ImageView store_icon;
-
     private Bitmap bitmap;
 
     @Override
@@ -84,7 +83,6 @@ public class StoreInfoActivity extends AppCompatActivity implements View.OnClick
             Log.i(Constants.TAG,"Unknown Error");
             store_icon.setImageResource(R.drawable.toastbox);
         }
-
 
     }
 

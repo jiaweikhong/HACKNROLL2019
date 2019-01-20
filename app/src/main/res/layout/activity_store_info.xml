@@ -14,13 +14,16 @@
         android:contentDescription="@string/todo"
         android:foreground="@drawable/gradient"
         android:scaleType="centerCrop"
-        android:src="@drawable/toastbox" />
+        android:src="@drawable/toastbox"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/selected_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="@string/selected_location"
         android:textSize="22sp" />
